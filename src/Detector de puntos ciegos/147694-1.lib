@@ -1,0 +1,26 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# 147694-1
+#
+DEF 147694-1 SW 0 40 Y N 1 L N
+F0 "SW" -300 100 50 H V L BNN
+F1 "147694-1" -302 -209 50 H V L BNN
+F2 "TE_FSM8JRT" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "147694-1" 0 0 50 H I L BNN "Comment"
+F5 "50 mA" 0 0 50 H I L BNN "Contact_Current_Rating"
+F6 "Compliant" 0 0 50 H I L BNN "EU_RoHS_Compliance"
+F7 "Single Pole - Single Throw" 0 0 50 H I L BNN "Configuration_Pole-Throw"
+DRAW
+C -80 0 20 0 0 5 N
+P 2 0 0 6 -59 0 50 50 N
+C 80 0 20 0 0 5 N
+X ~ 1 -300 0 200 R 40 40 0 0 P 
+X ~ 2 300 0 200 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
