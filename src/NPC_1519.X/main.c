@@ -8,24 +8,9 @@
 
 #include <xc.h>
 #include <stdio.h>
+#include <string.h>
 #include "config.h"
 #include "lib.h"
-
-#define OVRPSS_V_RNGE 200 // distance from car to end of mirror view at rear bumper alignment
-
-#define TRIG PORTCbits.RC0
-//#define BUZZ PORTAbits.RA6
-#define BUZZ PORTCbits.RC1
-#define SLOWUSA 0
-#define SLOWUSB 1
-#define GP_LED  PORTAbits.RA0
-#define BP_LED  PORTAbits.RA1
-#define RP_LED  PORTAbits.RA2
-#define GD_LED  PORTAbits.RA3
-#define BD_LED  PORTAbits.RA4
-#define RD_LED  PORTAbits.RA5
-#define OVRPS_D PORTAbits.RA6
-#define OVRPS_P PORTAbits.RA7
 
 // Ultrasonic Echo pin Definitions
 //RB0 is Front Grill D
@@ -51,7 +36,7 @@
 
 unsigned long millis = 0, prevMillis = 0;
 unsigned int us_us[8] = {0};
-char GPSRDY = 0, bzzEn = 0;
+unsigned char GPSRDY = 0, bzzEn = 0;
 float speed = 0;
 char NMEASentence[50] = {0};
 
@@ -60,16 +45,19 @@ void main(void) {
     TRISA = 0x00;
     TRISB = 0xFF;
     TRISC = 0x00;
+    TRISD = 0x00;
     ANSELA = 0x00;
     ANSELB = 0x00;
     ANSELC = 0x00;
+    ANSELD = 0x00;
     PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
+    PORTD = 0x00;
 
     INTCON = 0xE8; //Activa las interrupciones por cambio de estado, timer0 y perifericos
     PIE1 = 0x22; //Activa las interrupciones por Rx del modulo ESUART
-    IOCBN = 0b00000011; //Activa las interrupciones por cambio de estado(flanco negativo) 
+    IOCBN = 0b11111111; //Activa las interrupciones por cambio de estado(flanco negativo) 
 
     OPTION_REG = 0xC6; //Activa el timer0 con preescaler de 1:128, Fosc/4, no WPU
     T1CON = 0x01; //Activa el timer1 con preescaler de 1:1
@@ -80,16 +68,14 @@ void main(void) {
     
     UARTinit(9600, 1);
     UARTsendString("PIC INIT OK!\n\r", 24);
+    beginSecuence();
     while (1){
-//        asd =  map(us_to_cm(us_cm[0]), 20, 150, 30, 900);
-//        if (updateSpeed(&GPSRDY, &speed, NMEASentence)){
-//            sprintf(asd, "P:%d,T:%lu\n\r", us_to_cm(us_cm[0]), anashee);
-//            UARTsendString(asd, sizeof asd);
-//        }
+        //debugSS(&speed, &millis, &bzzEn);
+        updateSpeed(&GPSRDY, &speed, NMEASentence);
         // BEGIN Front Grill Check BEGIN
-        if (speed <= 3){
+        if (speed <= 10){
             long bzzTime = 0;
-            bzzTime = map(prom_us(us_to_cm(us_us[0]), us_to_cm(us_us[1])), 30, 2000, 40, 1500);
+            bzzTime = map(prom_us(us_to_cm(us_us[0]-1000), us_to_cm(us_us[1])), 50, 200, 40, 1500);
             if ((millis - prevMillis) >= bzzTime){
                 bzzEn = 1;
                 prevMillis = millis;
@@ -100,7 +86,7 @@ void main(void) {
         }
         // END Front Grill Check END
         // BEGIN Overpass Check BEGIN
-        if (speed >= 13){ // faster than 50km/h
+        if (speed >= 50){ // faster than 50km/h
             // Driver overpass check
             if (us_to_cm(us_us[2]) <= OVRPSS_V_RNGE){
                 OVRPS_D = 1;
@@ -113,34 +99,42 @@ void main(void) {
             } else {
                 OVRPS_P = 0;
             }
+        } else {
+            OVRPS_P = 0;
+            OVRPS_D = 0;
         }
         // END Overpass Check END
         // BEGIN Pillar Check BEGIN
-        if (speed >= 3 && speed <= 13){ //between 10 and 50km/h
-            int ledIntenD = 0, ledIntenP = 0;
-            ledIntenD = map(us_to_cm(us_us[4]), 50, 200, 0, 2);
-            ledIntenP = map(us_to_cm(us_us[5]), 50, 200, 0, 2);
+        if (speed <= 50){ //slower than 50km/h
+            long ledIntenD = 0, ledIntenP = 0;
+            ledIntenD = map(us_to_cm(us_us[4]), 50, 150, 0, 2);
+            ledIntenP = map(us_to_cm(us_us[6]), 50, 150, 0, 2);
             switch (ledIntenD){
                 case 0:
-                    GD_LED = 1;
-                    RD_LED = 0;
-                    BD_LED = 0;
-                    break;
-                case 1:
-                    GD_LED = 1;
-                    RD_LED = 1;
-                    BD_LED = 0;
-                    break;
-                case 2:
                     GD_LED = 0;
                     RD_LED = 1;
                     BD_LED = 0;
                     break;
+                case 1:
+                    GD_LED = 1;
+                    RD_LED = 1;
+                    BD_LED = 0;
+                    break;
+                case 2:
+                    GD_LED = 1;
+                    RD_LED = 0;
+                    BD_LED = 0;
+                    break;
+                default:
+                    GD_LED = 1;
+                    RD_LED = 1;
+                    BD_LED = 1;
+                    break;
             }
             switch (ledIntenP){
                 case 0:
-                    GP_LED = 1;
-                    RP_LED = 0;
+                    GP_LED = 0;
+                    RP_LED = 1;
                     BP_LED = 0;
                     break;
                 case 1:
@@ -149,11 +143,23 @@ void main(void) {
                     BP_LED = 0;
                     break;
                 case 2:
-                    GP_LED = 0;
-                    RP_LED = 1;
+                    GP_LED = 1;
+                    RP_LED = 0;
                     BP_LED = 0;
                     break;
+                default:
+                    GP_LED = 1;
+                    RP_LED = 1;
+                    BP_LED = 1;
+                    break;
             }
+        } else {
+            GP_LED = 1;
+            RP_LED = 1;
+            BP_LED = 1;
+            GD_LED = 1;
+            RD_LED = 1;
+            BD_LED = 1;
         }
     }
 }

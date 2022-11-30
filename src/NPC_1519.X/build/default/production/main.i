@@ -3407,6 +3407,63 @@ char *ctermid(char *);
 char *tempnam(const char *, const char *);
 # 10 "main.c" 2
 
+# 1 "D:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\string.h" 1 3
+# 25 "D:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\string.h" 3
+# 1 "D:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 411 "D:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct __locale_struct * locale_t;
+# 25 "D:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\string.h" 2 3
+
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+# 65 "D:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\string.h" 3
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
+# 11 "main.c" 2
+
 # 1 "./config.h" 1
 # 39 "./config.h"
 #pragma config FOSC = INTOSC
@@ -3426,49 +3483,46 @@ char *tempnam(const char *, const char *);
 #pragma config BORV = LO
 #pragma config LPBOR = OFF
 #pragma config LVP = ON
-# 11 "main.c" 2
+# 12 "main.c" 2
 
 # 1 "./lib.h" 1
-
-
-
-
-
-
-
-
+# 24 "./lib.h"
 char *strtok_single(char *, char const *);
 char UARTreadString(char *, unsigned char);
 void UARTinit(const long, const unsigned char);
 void UARTsendString(const char *, const unsigned char);
 unsigned char us_to_cm(unsigned int);
-char updateSpeed(char *, float *, char *);
-# 12 "main.c" 2
-# 32 "main.c"
+unsigned char prom_us(unsigned int, unsigned int);
+char updateSpeed(unsigned char *, float *, char *);
+long map(long, long, long, long, long);
+void beginSecuence();
+void debugSS(float *, unsigned long *, unsigned char *);
+# 13 "main.c" 2
+# 37 "main.c"
 unsigned long millis = 0, prevMillis = 0;
-unsigned int us_cm[8] = {0};
-char GPSRDY = 0, bzzEn = 0;
+unsigned int us_us[8] = {0};
+unsigned char GPSRDY = 0, bzzEn = 0;
 float speed = 0;
 char NMEASentence[50] = {0};
-
-
-long map(long x, long in_min, long in_max, long out_min, long out_max);
 
 void main(void) {
     OSCCON = 0x6A;
     TRISA = 0x00;
     TRISB = 0xFF;
     TRISC = 0x00;
+    TRISD = 0x00;
     ANSELA = 0x00;
     ANSELB = 0x00;
     ANSELC = 0x00;
+    ANSELD = 0x00;
     PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
+    PORTD = 0x00;
 
     INTCON = 0xE8;
     PIE1 = 0x22;
-    IOCBN = 0b00000001;
+    IOCBN = 0b11111111;
 
     OPTION_REG = 0xC6;
     T1CON = 0x01;
@@ -3479,20 +3533,98 @@ void main(void) {
 
     UARTinit(9600, 1);
     UARTsendString("PIC INIT OK!\n\r", 24);
+    beginSecuence();
     while (1){
 
+        updateSpeed(&GPSRDY, &speed, NMEASentence);
 
-
-
-
-
-        if (1){
-            if ((millis - prevMillis) >= 900){
-                PORTAbits.RA6 = 1;
-                _delay((unsigned long)((10)*(4000000/4000.0)));
-                PORTAbits.RA6 = 0;
+        if (speed <= 10){
+            long bzzTime = 0;
+            bzzTime = map(prom_us(us_to_cm(us_us[0]-1000), us_to_cm(us_us[1])), 50, 200, 40, 1500);
+            if ((millis - prevMillis) >= bzzTime){
+                bzzEn = 1;
                 prevMillis = millis;
             }
+            if (bzzTime < 0){
+                PORTCbits.RC1 = 1;
+            }
+        }
+
+
+        if (speed >= 50){
+
+            if (us_to_cm(us_us[2]) <= 175){
+                PORTAbits.RA6 = 1;
+            } else {
+                PORTAbits.RA6 = 0;
+            }
+
+            if (us_to_cm(us_us[3]) <= 175){
+                PORTAbits.RA7 = 1;
+            } else {
+                PORTAbits.RA7 = 0;
+            }
+        } else {
+            PORTAbits.RA7 = 0;
+            PORTAbits.RA6 = 0;
+        }
+
+
+        if (speed <= 50){
+            long ledIntenD = 0, ledIntenP = 0;
+            ledIntenD = map(us_to_cm(us_us[4]), 50, 150, 0, 2);
+            ledIntenP = map(us_to_cm(us_us[6]), 50, 150, 0, 2);
+            switch (ledIntenD){
+                case 0:
+                    PORTAbits.RA3 = 0;
+                    PORTAbits.RA5 = 1;
+                    PORTAbits.RA4 = 0;
+                    break;
+                case 1:
+                    PORTAbits.RA3 = 1;
+                    PORTAbits.RA5 = 1;
+                    PORTAbits.RA4 = 0;
+                    break;
+                case 2:
+                    PORTAbits.RA3 = 1;
+                    PORTAbits.RA5 = 0;
+                    PORTAbits.RA4 = 0;
+                    break;
+                default:
+                    PORTAbits.RA3 = 1;
+                    PORTAbits.RA5 = 1;
+                    PORTAbits.RA4 = 1;
+                    break;
+            }
+            switch (ledIntenP){
+                case 0:
+                    PORTAbits.RA0 = 0;
+                    PORTAbits.RA2 = 1;
+                    PORTAbits.RA1 = 0;
+                    break;
+                case 1:
+                    PORTAbits.RA0 = 1;
+                    PORTAbits.RA2 = 1;
+                    PORTAbits.RA1 = 0;
+                    break;
+                case 2:
+                    PORTAbits.RA0 = 1;
+                    PORTAbits.RA2 = 0;
+                    PORTAbits.RA1 = 0;
+                    break;
+                default:
+                    PORTAbits.RA0 = 1;
+                    PORTAbits.RA2 = 1;
+                    PORTAbits.RA1 = 1;
+                    break;
+            }
+        } else {
+            PORTAbits.RA0 = 1;
+            PORTAbits.RA2 = 1;
+            PORTAbits.RA1 = 1;
+            PORTAbits.RA3 = 1;
+            PORTAbits.RA5 = 1;
+            PORTAbits.RA4 = 1;
         }
     }
 }
@@ -3513,8 +3645,8 @@ void __attribute__((picinterrupt(("")))) isr() {
     }
     if (INTCONbits.IOCIF) {
         for (int i = 0; i < 8; i++) {
-            us_cm[i] = (((IOCBF >> i) & 0b1) == 1 ? (((TMR1H << 8) | TMR1L) - 471) : us_cm[i]);
-            IOCBF = (IOCBF & (~((char)1 << i))) | (0 << i);
+            us_us[i] = (((IOCBF >> i) & 0b1) == 1 ? (((TMR1H << 8) | TMR1L) - 471) : us_us[i]);
+            IOCBF = (IOCBF & (~(1 << i))) | (0 << i);
         }
         INTCONbits.IOCIF = 0;
     }
@@ -3525,18 +3657,14 @@ void __attribute__((picinterrupt(("")))) isr() {
         static int bzzPasses = 0;
         millis += 1;
         if (bzzEn){
-            PORTAbits.RA6 = 1;
+            PORTCbits.RC1 = 1;
             bzzPasses++;
-            if (bzzPasses == 5){
-                PORTAbits.RA6 = 0;
+            if (bzzPasses >= 40){
+                PORTCbits.RC1 = 0;
                 bzzEn = 0;
                 bzzPasses = 0;
             }
         }
         PIR1bits.TMR2IF = 0;
     }
-}
-
-long map(long x, long in_min, long in_max, long out_min, long out_max) {
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

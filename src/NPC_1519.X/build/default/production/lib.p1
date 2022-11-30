@@ -44,12 +44,27 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2901
 [; ;D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h: 2901: extern volatile unsigned char RCREG __attribute__((address(0x199)));
 [v _RCREG `Vuc ~T0 @X0 0 e@409 ]
-"40 D:\Program Files\Microchip\xc8\v2.40\pic\include\c99\string.h
-[; ;D:\Program Files\Microchip\xc8\v2.40\pic\include\c99\string.h: 40: int strncmp (const char *, const char *, size_t);
-[v _strncmp `(i ~T0 @X0 0 ef3`*Cuc`*Cuc`ui ]
 "26 D:\Program Files\Microchip\xc8\v2.40\pic\include\c99\stdlib.h
 [; ;D:\Program Files\Microchip\xc8\v2.40\pic\include\c99\stdlib.h: 26: double atof (const char *);
 [v _atof `(d ~T0 @X0 0 ef1`*Cuc ]
+"560 D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h
+[; ;D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h: 560:     struct {
+[s S38 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S38 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
+"559
+[; ;D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h: 559: typedef union {
+[u S37 `S38 1 ]
+[n S37 . . ]
+"571
+[; ;D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h: 571: extern volatile PORTCbits_t PORTCbits __attribute__((address(0x00E)));
+[v _PORTCbits `VS37 ~T0 @X0 0 e@14 ]
+"430
+[; ;D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h: 430: extern volatile unsigned char PORTA __attribute__((address(0x00C)));
+[v _PORTA `Vuc ~T0 @X0 0 e@12 ]
+[v F192 `(v ~T0 @X0 1 tf1`ul ]
+"12 D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\builtins.h
+[v __delay `JF192 ~T0 @X0 0 e ]
+[p i __delay ]
 "55 D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h
 [; ;D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\pic\include\proc\pic16f1519.h: 55: __asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
@@ -441,8 +456,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "14
 [; ;lib.c: 14:     static char *src = ((void*)0);
-[v F2012 `*uc ~T0 @X0 1 s src ]
-[i F2012
+[v F2026 `*uc ~T0 @X0 1 s src ]
+[i F2026
 -> -> -> 0 `i `*v `*uc
 ]
 "15
@@ -455,11 +470,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! != _str -> -> -> 0 `i `*v `*uc 256  ]
 "18
 [; ;lib.c: 18:         src = str;
-[e = F2012 _str ]
+[e = F2026 _str ]
 [e :U 256 ]
 "20
 [; ;lib.c: 20:     if (src == ((void*)0))
-[e $ ! == F2012 -> -> -> 0 `i `*v `*uc 257  ]
+[e $ ! == F2026 -> -> -> 0 `i `*v `*uc 257  ]
 "21
 [; ;lib.c: 21:         return ((void*)0);
 [e ) -> -> -> 0 `i `*v `*uc ]
@@ -467,30 +482,30 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 257 ]
 "23
 [; ;lib.c: 23:     if ((p = strpbrk(src, delims)) != ((void*)0)) {
-[e $ ! != = _p ( _strpbrk (2 , -> F2012 `*Cuc _delims -> -> -> 0 `i `*v `*uc 258  ]
+[e $ ! != = _p ( _strpbrk (2 , -> F2026 `*Cuc _delims -> -> -> 0 `i `*v `*uc 258  ]
 {
 "24
 [; ;lib.c: 24:         *p = 0;
 [e = *U _p -> -> 0 `i `uc ]
 "25
 [; ;lib.c: 25:         ret = src;
-[e = _ret F2012 ]
+[e = _ret F2026 ]
 "26
 [; ;lib.c: 26:         src = ++p;
-[e = F2012 =+ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[e = F2026 =+ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
 "27
 [; ;lib.c: 27:     } else if (*src) {
 }
 [e $U 259  ]
 [e :U 258 ]
-[e $ ! != -> *U F2012 `i -> 0 `i 260  ]
+[e $ ! != -> *U F2026 `i -> 0 `i 260  ]
 {
 "28
 [; ;lib.c: 28:         ret = src;
-[e = _ret F2012 ]
+[e = _ret F2026 ]
 "29
 [; ;lib.c: 29:         src = ((void*)0);
-[e = F2012 -> -> -> 0 `i `*v `*uc ]
+[e = F2026 -> -> -> 0 `i `*v `*uc ]
 "30
 [; ;lib.c: 30:     }
 }
@@ -623,8 +638,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "78
 [; ;lib.c: 78:     static int i = 0;
-[v F2025 `i ~T0 @X0 1 s i ]
-[i F2025
+[v F2039 `i ~T0 @X0 1 s i ]
+[i F2039
 -> 0 `i
 ]
 "79
@@ -655,7 +670,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _tmp -> _RCREG `uc ]
 "87
 [; ;lib.c: 87:     if (i < bufSize){
-[e $ ! < F2025 -> _bufSize `i 274  ]
+[e $ ! < F2039 -> _bufSize `i 274  ]
 {
 "88
 [; ;lib.c: 88:         if (tmp == '\0' || tmp == '\n' || tmp == '\r') {
@@ -663,10 +678,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 "89
 [; ;lib.c: 89:             buf[i + 1] = '\0';
-[e = *U + _buf * -> + F2025 -> 1 `i `x -> -> # *U _buf `i `x -> -> 0 `ui `uc ]
+[e = *U + _buf * -> + F2039 -> 1 `i `x -> -> # *U _buf `i `x -> -> 0 `ui `uc ]
 "90
 [; ;lib.c: 90:             i = 0;
-[e = F2025 -> 0 `i ]
+[e = F2039 -> 0 `i ]
 "91
 [; ;lib.c: 91:             return 1;
 [e ) -> -> 1 `i `uc ]
@@ -677,10 +692,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 275 ]
 "93
 [; ;lib.c: 93:         buf[i] = tmp;
-[e = *U + _buf * -> F2025 `x -> -> # *U _buf `i `x _tmp ]
+[e = *U + _buf * -> F2039 `x -> -> # *U _buf `i `x _tmp ]
 "94
 [; ;lib.c: 94:         i++;
-[e ++ F2025 -> 1 `i ]
+[e ++ F2039 -> 1 `i ]
 "95
 [; ;lib.c: 95:         return 0;
 [e ) -> -> 0 `i `uc ]
@@ -713,7 +728,23 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 276 ]
 }
 "104
-[; ;lib.c: 104: char updateSpeed(char *DRDY, float *v, char *string){
+[; ;lib.c: 104: unsigned char prom_us(unsigned int us1, unsigned int us2){
+[v _prom_us `(uc ~T0 @X0 1 ef2`ui`ui ]
+{
+[e :U _prom_us ]
+[v _us1 `ui ~T0 @X0 1 r1 ]
+[v _us2 `ui ~T0 @X0 1 r2 ]
+[f ]
+"105
+[; ;lib.c: 105:     return (us1 + us2)/2;
+[e ) -> / + _us1 _us2 -> -> 2 `i `ui `uc ]
+[e $UE 277  ]
+"106
+[; ;lib.c: 106: }
+[e :UE 277 ]
+}
+"108
+[; ;lib.c: 108: char updateSpeed(unsigned char *DRDY, float *v, char *string){
 [v _updateSpeed `(uc ~T0 @X0 1 ef3`*uc`*f`*uc ]
 {
 [e :U _updateSpeed ]
@@ -721,22 +752,21 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _v `*f ~T0 @X0 1 r2 ]
 [v _string `*uc ~T0 @X0 1 r3 ]
 [f ]
-"105
-[; ;lib.c: 105:     if (*DRDY){
-[e $ ! != -> *U _DRDY `i -> 0 `i 278  ]
-{
-"106
-[; ;lib.c: 106:             *DRDY = 0;
-[e = *U _DRDY -> -> 0 `i `uc ]
-"107
-[; ;lib.c: 107:             if (!strncmp(string, "$GPVTG", 6)){
-[e $ ! ! != ( _strncmp (3 , , -> _string `*Cuc :s 2C -> -> 6 `i `ui -> 0 `i 279  ]
-{
-"108
-[; ;lib.c: 108:                 strtok_single(string, ",");
-[e ( _strtok_single (2 , _string :s 3C ]
 "109
-[; ;lib.c: 109:                 for (int i = 0; i < 6; i++){
+[; ;lib.c: 109:     float temp;
+[v _temp `f ~T0 @X0 1 a ]
+"110
+[; ;lib.c: 110:     if (*DRDY){
+[e $ ! != -> *U _DRDY `i -> 0 `i 279  ]
+{
+"111
+[; ;lib.c: 111:         *DRDY = 0;
+[e = *U _DRDY -> -> 0 `i `uc ]
+"112
+[; ;lib.c: 112:         strtok_single(string+6, ",");
+[e ( _strtok_single (2 , + _string * -> -> 6 `i `x -> -> # *U _string `i `x :s 1C ]
+"113
+[; ;lib.c: 113:         for (int i = 0; i < 6; i++){
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -744,41 +774,181 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 281  ]
 [e :U 280 ]
 {
-"110
-[; ;lib.c: 110:                     strtok_single(((void*)0), ",");
-[e ( _strtok_single (2 , -> -> -> 0 `i `*v `*uc :s 4C ]
-"111
-[; ;lib.c: 111:                 }
+"114
+[; ;lib.c: 114:             strtok_single(((void*)0), ",");
+[e ( _strtok_single (2 , -> -> -> 0 `i `*v `*uc :s 2C ]
+"115
+[; ;lib.c: 115:         }
 }
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 6 `i 280  ]
 [e :U 281 ]
 }
-"112
-[; ;lib.c: 112:                 *v = atof(strtok_single(((void*)0), ","));
-[e = *U _v -> ( _atof (1 -> ( _strtok_single (2 , -> -> -> 0 `i `*v `*uc :s 5C `*Cuc `f ]
-"113
-[; ;lib.c: 113:                 return 1;
-[e ) -> -> 1 `i `uc ]
-[e $UE 277  ]
-"114
-[; ;lib.c: 114:             }
+"116
+[; ;lib.c: 116:         temp = atof(strtok_single(((void*)0), ","));
+[e = _temp -> ( _atof (1 -> ( _strtok_single (2 , -> -> -> 0 `i `*v `*uc :s 3C `*Cuc `f ]
+"117
+[; ;lib.c: 117:         if (temp != 0){
+[e $ ! != _temp -> -> 0 `i `f 283  ]
+{
+"118
+[; ;lib.c: 118:             *v = temp;
+[e = *U _v _temp ]
+"119
+[; ;lib.c: 119:         }
+}
+[e :U 283 ]
+"120
+[; ;lib.c: 120:         return 0;
+[e ) -> -> 0 `i `uc ]
+[e $UE 278  ]
+"121
+[; ;lib.c: 121:     }
 }
 [e :U 279 ]
-"115
-[; ;lib.c: 115:         }
+"122
+[; ;lib.c: 122:     return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 278  ]
+"123
+[; ;lib.c: 123: }
+[e :UE 278 ]
 }
-[e :U 278 ]
-"116
-[; ;lib.c: 116:     return 0;
-[e ) -> -> 0 `i `uc ]
-[e $UE 277  ]
-"117
-[; ;lib.c: 117: }
-[e :UE 277 ]
+"125
+[; ;lib.c: 125: long map(long x, long in_min, long in_max, long out_min, long out_max) {
+[v _map `(l ~T0 @X0 1 ef5`l`l`l`l`l ]
+{
+[e :U _map ]
+[v _x `l ~T0 @X0 1 r1 ]
+[v _in_min `l ~T0 @X0 1 r2 ]
+[v _in_max `l ~T0 @X0 1 r3 ]
+[v _out_min `l ~T0 @X0 1 r4 ]
+[v _out_max `l ~T0 @X0 1 r5 ]
+[f ]
+"126
+[; ;lib.c: 126:   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+[e ) + / * - _x _in_min - _out_max _out_min - _in_max _in_min _out_min ]
+[e $UE 284  ]
+"127
+[; ;lib.c: 127: }
+[e :UE 284 ]
 }
-[a 1C 36 71 80 86 84 71 0 ]
-[a 2C 36 71 80 86 84 71 0 ]
+"129
+[; ;lib.c: 129: void beginSecuence(){
+[v _beginSecuence `(v ~T0 @X0 1 ef ]
+{
+[e :U _beginSecuence ]
+[f ]
+"130
+[; ;lib.c: 130:     PORTCbits.RC1 = 1;
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+"131
+[; ;lib.c: 131:     PORTA = 0xFF;
+[e = _PORTA -> -> 255 `i `uc ]
+"132
+[; ;lib.c: 132:     _delay((unsigned long)((50)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"133
+[; ;lib.c: 133:     for (int i = 0; i < 8; i++){
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 286  ]
+[e $U 287  ]
+[e :U 286 ]
+{
+"134
+[; ;lib.c: 134:         PORTA = PORTA << 1;
+[e = _PORTA -> << -> _PORTA `i -> 1 `i `uc ]
+"135
+[; ;lib.c: 135:         PORTCbits.RC1 = !PORTCbits.RC1;
+[e = . . _PORTCbits 0 1 -> -> ! != -> . . _PORTCbits 0 1 `i -> 0 `i `i `uc ]
+"136
+[; ;lib.c: 136:         _delay((unsigned long)((50)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"137
+[; ;lib.c: 137:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 8 `i 286  ]
+[e :U 287 ]
+}
+"138
+[; ;lib.c: 138:     PORTCbits.RC1 = 0;
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+"139
+[; ;lib.c: 139: }
+[e :UE 285 ]
+}
+"141
+[; ;lib.c: 141: void debugSS(float *v, unsigned long *millis, unsigned char *bzz){
+[v _debugSS `(v ~T0 @X0 1 ef3`*f`*ul`*uc ]
+{
+[e :U _debugSS ]
+[v _v `*f ~T0 @X0 1 r1 ]
+[v _millis `*ul ~T0 @X0 1 r2 ]
+[v _bzz `*uc ~T0 @X0 1 r3 ]
+[f ]
+"142
+[; ;lib.c: 142:     if (*v <= 50.0){
+[e $ ! <= -> *U _v `d .50.0 290  ]
+{
+"143
+[; ;lib.c: 143:         static unsigned long prevMillis = 0;
+[v F2065 `ul ~T0 @X0 1 s prevMillis ]
+[i F2065
+-> -> -> 0 `i `l `ul
+]
+"144
+[; ;lib.c: 144:         if ((*millis - prevMillis) >= 1000){
+[e $ ! >= - *U _millis F2065 -> -> -> 1000 `i `l `ul 291  ]
+{
+"145
+[; ;lib.c: 145:             prevMillis = *millis;
+[e = F2065 *U _millis ]
+"146
+[; ;lib.c: 146:             *bzz = 1;
+[e = *U _bzz -> -> 1 `i `uc ]
+"147
+[; ;lib.c: 147:         }
+}
+[e :U 291 ]
+"148
+[; ;lib.c: 148:     }
+}
+[e :U 290 ]
+"149
+[; ;lib.c: 149:     if (*v >= 50.0){
+[e $ ! >= -> *U _v `d .50.0 292  ]
+{
+"150
+[; ;lib.c: 150:         static unsigned long prevMillis = 0;
+[v F2066 `ul ~T0 @X0 1 s prevMillis ]
+[i F2066
+-> -> -> 0 `i `l `ul
+]
+"151
+[; ;lib.c: 151:         if ((*millis - prevMillis) >= 500){
+[e $ ! >= - *U _millis F2066 -> -> -> 500 `i `l `ul 293  ]
+{
+"152
+[; ;lib.c: 152:             prevMillis = *millis;
+[e = F2066 *U _millis ]
+"153
+[; ;lib.c: 153:             *bzz = 1;
+[e = *U _bzz -> -> 1 `i `uc ]
+"154
+[; ;lib.c: 154:         }
+}
+[e :U 293 ]
+"155
+[; ;lib.c: 155:     }
+}
+[e :U 292 ]
+"156
+[; ;lib.c: 156: }
+[e :UE 289 ]
+}
+[a 1C 44 0 ]
+[a 2C 44 0 ]
 [a 3C 44 0 ]
-[a 4C 44 0 ]
-[a 5C 44 0 ]

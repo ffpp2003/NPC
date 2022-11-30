@@ -3339,20 +3339,17 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 10 "lib.c" 2
 
 # 1 "./lib.h" 1
-
-
-
-
-
-
-
-
+# 24 "./lib.h"
 char *strtok_single(char *, char const *);
 char UARTreadString(char *, unsigned char);
 void UARTinit(const long, const unsigned char);
 void UARTsendString(const char *, const unsigned char);
 unsigned char us_to_cm(unsigned int);
-char updateSpeed(char *, float *, char *);
+unsigned char prom_us(unsigned int, unsigned int);
+char updateSpeed(unsigned char *, float *, char *);
+long map(long, long, long, long, long);
+void beginSecuence();
+void debugSS(float *, unsigned long *, unsigned char *);
 # 11 "lib.c" 2
 
 
@@ -3440,17 +3437,56 @@ unsigned char us_to_cm(unsigned int us){
     return us/58;
 }
 
-char updateSpeed(char *DRDY, float *v, char *string){
+unsigned char prom_us(unsigned int us1, unsigned int us2){
+    return (us1 + us2)/2;
+}
+
+char updateSpeed(unsigned char *DRDY, float *v, char *string){
+    float temp;
     if (*DRDY){
-            *DRDY = 0;
-            if (!strncmp(string, "$GPVTG", 6)){
-                strtok_single(string, ",");
-                for (int i = 0; i < 6; i++){
-                    strtok_single(((void*)0), ",");
-                }
-                *v = atof(strtok_single(((void*)0), ","));
-                return 1;
-            }
+        *DRDY = 0;
+        strtok_single(string+6, ",");
+        for (int i = 0; i < 6; i++){
+            strtok_single(((void*)0), ",");
         }
-    return 0;
+        temp = atof(strtok_single(((void*)0), ","));
+        if (temp != 0){
+            *v = temp;
+        }
+        return 0;
+    }
+    return 1;
+}
+
+long map(long x, long in_min, long in_max, long out_min, long out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void beginSecuence(){
+    PORTCbits.RC1 = 1;
+    PORTA = 0xFF;
+    _delay((unsigned long)((50)*(4000000/4000.0)));
+    for (int i = 0; i < 8; i++){
+        PORTA = PORTA << 1;
+        PORTCbits.RC1 = !PORTCbits.RC1;
+        _delay((unsigned long)((50)*(4000000/4000.0)));
+    }
+    PORTCbits.RC1 = 0;
+}
+
+void debugSS(float *v, unsigned long *millis, unsigned char *bzz){
+    if (*v <= 50.0){
+        static unsigned long prevMillis = 0;
+        if ((*millis - prevMillis) >= 1000){
+            prevMillis = *millis;
+            *bzz = 1;
+        }
+    }
+    if (*v >= 50.0){
+        static unsigned long prevMillis = 0;
+        if ((*millis - prevMillis) >= 500){
+            prevMillis = *millis;
+            *bzz = 1;
+        }
+    }
 }

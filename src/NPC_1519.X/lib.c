@@ -105,21 +105,52 @@ unsigned char prom_us(unsigned int us1, unsigned int us2){
     return (us1 + us2)/2;
 }
 
-char updateSpeed(char *DRDY, float *v, char *string){
+char updateSpeed(unsigned char *DRDY, float *v, char *string){
+    float temp;
     if (*DRDY){
-            *DRDY = 0;
-            if (!strncmp(string, "$GPVTG", 6)){
-                strtok_single(string, ",");
-                for (int i = 0; i < 6; i++){
-                    strtok_single(NULL, ",");
-                }
-                *v = atof(strtok_single(NULL, ","));
-                return 1;
-            }
+        *DRDY = 0;
+        strtok_single(string+6, ",");
+        for (int i = 0; i < 6; i++){
+            strtok_single(NULL, ",");
         }
-    return 0;
+        temp = atof(strtok_single(NULL, ","));
+        if (temp != 0){
+            *v = temp;
+        }
+        return 0;
+    }
+    return 1;
 }
 
 long map(long x, long in_min, long in_max, long out_min, long out_max) {
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void beginSecuence(){
+    BUZZ = 1;
+    PORTA = 0xFF;
+    __delay_ms(50);
+    for (int i = 0; i < 8; i++){
+        PORTA = PORTA << 1;
+        BUZZ = !BUZZ;
+        __delay_ms(50);
+    }
+    BUZZ = 0;
+}
+
+void debugSS(float *v, unsigned long *millis, unsigned char *bzz){
+    if (*v <= 50.0){ // MID SPEED AREA
+        static unsigned long prevMillis = 0;
+        if ((*millis - prevMillis) >= 1000){
+            prevMillis = *millis;
+            *bzz = 1;
+        }
+    }
+    if (*v >= 50.0){ // HI SPEED AREA
+        static unsigned long prevMillis = 0;
+        if ((*millis - prevMillis) >= 500){
+            prevMillis = *millis;
+            *bzz = 1;
+        }
+    }
 }
