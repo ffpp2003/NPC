@@ -53,7 +53,7 @@
     )
     (pad_to_mask_clearance 0)
     (pcbplotparams
-      (layerselection 0x00010fc_ffffffff)
+      (layerselection 0x0000030_7ffffffe)
       (disableapertmacros false)
       (usegerberextensions false)
       (usegerberattributes true)
@@ -70,7 +70,7 @@
       (hpglpenspeed 20)
       (hpglpendiameter 15.000000)
       (dxfpolygonmode true)
-      (dxfimperialunits true)
+      (dxfimperialunits false)
       (dxfusepcbnewfont true)
       (psnegative false)
       (psa4output false)
@@ -79,9 +79,9 @@
       (plotinvisibletext false)
       (sketchpadsonfab false)
       (subtractmaskfromsilk false)
-      (outputformat 1)
+      (outputformat 3)
       (mirror false)
-      (drillshape 1)
+      (drillshape 0)
       (scaleselection 1)
       (outputdirectory "")
     )
@@ -213,10 +213,20 @@
       (net 25 "Net-(U2-Pad25)") (pinfunction "RX") (pintype "input") (tstamp d4908c22-097a-4bb9-b27e-32d2754ea2f7))
     (pad "4" thru_hole oval (at 3.82 16.5 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 4 "+5V") (pinfunction "VCC") (pintype "power_in") (tstamp 646c3aa7-4c15-4f2a-be4f-56146f8f3c41))
-    (model "${KIPRJMOD}/mCALCAN_lib.3d/GPS_ublox_board.STEP"
-      (offset (xyz -13.3 17.4 1))
+    (model "${KIPRJMOD}/GPS_ublox_board.STEP"
+      (offset (xyz -13.3 17.4 10.5))
       (scale (xyz 1 1 1))
       (rotate (xyz -90 0 90))
+    )
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x04_P2.54mm_Vertical.step"
+      (offset (xyz -4 -16.5 10))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 -180 -90))
+    )
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x04_P2.54mm_Vertical.step"
+      (offset (xyz -4 -16.5 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 -90))
     )
   )
 
@@ -652,6 +662,11 @@
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
+    )
+    (model "${KIPRJMOD}/TL2230EEF100--3DModel-STEP-613395_2.step"
+      (offset (xyz 2.5 -3 0))
+      (scale (xyz 1.2 1.2 1.2))
+      (rotate (xyz -90 0 0))
     )
   )
 
@@ -1096,6 +1111,11 @@
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
     )
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-40_W15.24mm.step"
+      (offset (xyz 0 0 4.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (footprint "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" (layer "F.Cu")
@@ -1328,11 +1348,11 @@
     (tags "kb_params=eyJBbGlnbm1lbnRDaG9pY2UiOiAiQ2VudGVyIiwgIkNhcExlZnRDaG9pY2UiOiAiIiwgIkNhcFJpZ2h0Q2hvaWNlIjogIiIsICJGb250Q29tYm9Cb3giOiAibXBsdXMtMW1uLW1lZGl1bSIsICJIZWlnaHRDdHJsIjogIjEiLCAiTGF5ZXJDb21ib0JveCI6ICJGLkN1IiwgIk11bHRpTGluZVRleHQiOiAiTmV1dHJhbGl6YWRvciBkZSBQdW50b3MgQ2llZ29zIiwgIlBhZGRpbmdCb3R0b21DdHJsIjogIjUiLCAiUGFkZGluZ0xlZnRDdHJsIjogIjUiLCAiUGFkZGluZ1JpZ2h0Q3RybCI6ICI1IiwgIlBhZGRpbmdUb3BDdHJsIjogIjUiLCAiV2lkdGhDdHJsIjogIjEwIn0=")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-636CFA59" (at 0 3.833813) (layer "B.SilkS") hide
-      (effects (font (size 0 0)) (justify mirror))
+      (effects (font (size 0 0) (thickness 0.15)) (justify mirror))
       (tstamp 770e44bf-18b0-4a60-98c4-317f76ca274f)
     )
     (fp_text value "G***" (at 0 -3.833813) (layer "B.SilkS") hide
-      (effects (font (size 0 0)) (justify mirror))
+      (effects (font (size 0 0) (thickness 0.15)) (justify mirror))
       (tstamp a46c9c50-2fe3-4b8d-b3fd-5b80556b63e2)
     )
     (fp_poly (pts
@@ -2188,11 +2208,11 @@
     (tags "kb_params=eyJBbGlnbm1lbnRDaG9pY2UiOiAiQ2VudGVyIiwgIkNhcExlZnRDaG9pY2UiOiAiIiwgIkNhcFJpZ2h0Q2hvaWNlIjogIiIsICJGb250Q29tYm9Cb3giOiAibXBsdXMtMW1uLW1lZGl1bSIsICJIZWlnaHRDdHJsIjogIjIiLCAiTGF5ZXJDb21ib0JveCI6ICJGLkN1IiwgIk11bHRpTGluZVRleHQiOiAiYnkgZnBwIiwgIlBhZGRpbmdCb3R0b21DdHJsIjogIjUiLCAiUGFkZGluZ0xlZnRDdHJsIjogIjUiLCAiUGFkZGluZ1JpZ2h0Q3RybCI6ICI1IiwgIlBhZGRpbmdUb3BDdHJsIjogIjUiLCAiV2lkdGhDdHJsIjogIjE1In0=")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-636CFAAE" (at 0 4.587875) (layer "B.SilkS") hide
-      (effects (font (size 0 0)) (justify mirror))
+      (effects (font (size 0 0) (thickness 0.15)) (justify mirror))
       (tstamp c2cebb51-8025-47d2-906e-3bd32c6a54ac)
     )
     (fp_text value "G***" (at 0 -4.587875) (layer "B.SilkS") hide
-      (effects (font (size 0 0)) (justify mirror))
+      (effects (font (size 0 0) (thickness 0.15)) (justify mirror))
       (tstamp 96058ced-7249-4a2b-abaa-b3fb21f59391)
     )
     (fp_poly (pts
@@ -2354,11 +2374,11 @@
     (tags "kb_params=eyJBbGlnbm1lbnRDaG9pY2UiOiAiQ2VudGVyIiwgIkNhcExlZnRDaG9pY2UiOiAiIiwgIkNhcFJpZ2h0Q2hvaWNlIjogIiIsICJGb250Q29tYm9Cb3giOiAibXBsdXMtMW1uLW1lZGl1bSIsICJIZWlnaHRDdHJsIjogIjEiLCAiTGF5ZXJDb21ib0JveCI6ICJGLkN1IiwgIk11bHRpTGluZVRleHQiOiAiSVRTIFZpbGxhZGEgMjAyMiIsICJQYWRkaW5nQm90dG9tQ3RybCI6ICI1IiwgIlBhZGRpbmdMZWZ0Q3RybCI6ICI1IiwgIlBhZGRpbmdSaWdodEN0cmwiOiAiNSIsICJQYWRkaW5nVG9wQ3RybCI6ICI1IiwgIldpZHRoQ3RybCI6ICIxMCJ9")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-636CFA96" (at 0 3.659188) (layer "B.SilkS") hide
-      (effects (font (size 0 0)) (justify mirror))
+      (effects (font (size 0 0) (thickness 0.15)) (justify mirror))
       (tstamp 891f022c-2728-4bcd-a092-9be89596896e)
     )
     (fp_text value "G***" (at 0 -3.659188) (layer "B.SilkS") hide
-      (effects (font (size 0 0)) (justify mirror))
+      (effects (font (size 0 0) (thickness 0.15)) (justify mirror))
       (tstamp 00c63481-2078-4b69-9bf2-059588ac1fbc)
     )
     (fp_poly (pts

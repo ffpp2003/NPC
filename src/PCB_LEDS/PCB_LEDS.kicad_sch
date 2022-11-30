@@ -4,6 +4,15 @@
 
   (paper "A4")
 
+  (title_block
+    (title "\"A\" Pillar LED ARRAY PCB")
+    (date "2022-11-20")
+    (rev "3")
+    (company "ITS VILLADA")
+    (comment 1 "Designed By: Gaston Grasso")
+    (comment 2 "2022")
+  )
+
   (lib_symbols
     (symbol "Connector_Generic:Conn_01x05" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (id 0) (at 0 7.62 0)
@@ -578,7 +587,6 @@
   )
 
 
-
   (wire (pts (xy 213.36 92.71) (xy 213.36 83.82))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 022725f0-de8c-433d-91d7-9ad6461e55a2)
@@ -878,11 +886,6 @@
   (wire (pts (xy 54.61 99.06) (xy 41.91 99.06))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid f0edd1d8-8542-48d1-b417-133b5836ccc9)
-  )
-
-  (text "15x150mm\n" (at 144.78 35.56 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 95f36f73-3a4b-42e3-b73a-c6452f7183b8)
   )
 
   (global_label "LED_R" (shape input) (at 181.61 111.76 180) (fields_autoplaced)
